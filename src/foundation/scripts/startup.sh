@@ -28,25 +28,37 @@ deploy_k8s () {
   INSTALL_SOFTWARE="sudo apt-get update && sudo apt-get install -y git &&\
            sudo rm -rf ~/.kube ~/iec &&\
            git clone ${REPO_URL} &&\
-           cd iec/scripts/ && source k8s_common.sh"
+           cd iec/src/foundation/scripts/ && source k8s_common.sh"
 
   #Automatic deploy the K8s environments on Master node
-  SETUP_MASTER="cd iec/scripts/ && source k8s_master.sh ${K8S_MASTER_IP}"
+  SETUP_MASTER="cd iec/src/foundation/scripts/ && source k8s_master.sh ${K8S_MASTER_IP}"
   sshpass -p ${K8S_MASTERPW} ssh ${HOST_USER}@${K8S_MASTER_IP} ${INSTALL_SOFTWARE}
   sshpass -p ${K8S_MASTERPW} ssh ${HOST_USER}@${K8S_MASTER_IP} ${SETUP_MASTER} | tee kubeadm.log
 
   KUBEADM_JOIN_CMD=$(grep "kubeadm join " ./kubeadm.log)
 
   #Automatic deploy the K8s environments on Worker node
-  SETUP_WORKER="cd iec/scripts/ && source k8s_worker.sh"
+  SETUP_WORKER="cd iec/src/foundation/scripts/ && source k8s_worker.sh"
   sshpass -p ${K8S_WORKERPW} ssh ${HOST_USER}@${K8S_WORKER01_IP} ${INSTALL_SOFTWARE}
-  sshpass -p ${K8S_WORKERPW} ssh ${HOST_USER}@${K8S_WORKER01_IP} "echo \"sudo ${KUBEADM_JOIN_CMD}\" >> ./iec/scripts/k8s_worker.sh"
+  sshpass -p ${K8S_WORKERPW} ssh ${HOST_USER}@${K8S_WORKER01_IP} "echo \"sudo ${KUBEADM_JOIN_CMD}\" >> ./iec/src/foundation/scripts/k8s_worker.sh"
   sshpass -p ${K8S_WORKERPW} ssh ${HOST_USER}@${K8S_WORKER01_IP} ${SETUP_WORKER}
 
   #Deploy etcd & CNI from master node
   #There may be more options in future. e.g: Calico, Contiv-vpp, Ovn-k8s ...
-  SETUP_CNI="cd iec/scripts && source setup-cni.sh"
+  SETUP_CNI="cd iec/src/foundation/scripts && source setup-cni.sh"
   sshpass -p ${K8S_MASTERPW} ssh ${HOST_USER}@${K8S_MASTER_IP} ${SETUP_CNI}
+}
+
+#
+# Check the K8s environments
+#
+check_k8s_status(){
+  set -o xtrace
+
+  VERIFY_K8S="cd iec/src/foundation/scripts/ && source nginx.sh"
+  sshpass -p ${K8S_MASTERPW} ssh ${HOST_USER}@${K8S_MASTER_IP} ${VERIFY_K8S}
+
+  sleep 30
 }
 
 
@@ -77,3 +89,5 @@ fi
 
 
 deploy_k8s
+
+check_k8s_status
