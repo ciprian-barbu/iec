@@ -42,3 +42,4 @@ EOF
   kubectl create -f "${TILLER_SA_RBAC}"
   helm init --service-account tiller --tiller-image="jessestuart/tiller:${VERSION}"
 fi
+rm -f "${TILLER_SA_RBAC}"
