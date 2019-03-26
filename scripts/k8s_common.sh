@@ -2,6 +2,7 @@
 
 DOCKER_VERSION=18.06.1~ce~3-0~ubuntu
 KUBE_VERSION=1.13.0-00
+K8SCNI_VERSION=0.6.0-00
 
 # Install Docker as Prerequisite
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -26,7 +27,7 @@ deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 sudo apt update
 sudo apt install -y \
-  kubelet=${KUBE_VERSION} kubeadm=${KUBE_VERSION} kubectl=${KUBE_VERSION}
+  kubernetes-cni=${K8SCNI_VERSION} kubelet=${KUBE_VERSION} kubeadm=${KUBE_VERSION} kubectl=${KUBE_VERSION}
 sudo apt-mark hold kubelet kubeadm kubectl
 
 _conf='/etc/sysctl.d/99-akraino-iec.conf'
