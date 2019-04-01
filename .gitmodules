@@ -1,0 +1,3 @@
+[submodule "seba_charts"]
+	path = src/use_cases/seba_on_arm/src_repo/seba_charts
+	url = https://github.com/iecedge/seba_charts.git
