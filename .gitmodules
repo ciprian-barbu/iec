@@ -1,3 +1,10 @@
 [submodule "seba_charts"]
 	path = src/use_cases/seba_on_arm/src_repo/seba_charts
 	url = https://github.com/iecedge/seba_charts.git
+[submodule "kafka-exporter"]
+	path = src/use_cases/seba_on_arm/src_repo/kafka-exporter
+	url = https://github.com/iecedge/kafka_exporter.git
+[submodule "cp-docker-images"]
+	path = src/use_cases/seba_on_arm/src_repo/cp-docker-images
+	url = https://github.com/iecedge/cp-docker-images.git
+	branch = 4.1.2-post-arm64v8
