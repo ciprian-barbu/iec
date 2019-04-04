@@ -8,3 +8,17 @@
 	path = src/use_cases/seba_on_arm/src_repo/cp-docker-images
 	url = https://github.com/iecedge/cp-docker-images.git
 	branch = 4.1.2-post-arm64v8
+[submodule "kafka-prometheus-jmx-exporter"]
+	path = src/use_cases/seba_on_arm/src_repo/kafka-prometheus-jmx-exporter
+	url = https://github.com/iecedge/dockerfiles.git
+	branch = misc-dockerfiles
+[submodule "contrib"]
+	path = src/use_cases/seba_on_arm/src_repo/contrib
+	url = https://github.com/iecedge/contrib.git
+[submodule "zookeeper_exporter"]
+	path = src/use_cases/seba_on_arm/src_repo/zookeeper_exporter
+	url = https://github.com/iecedge/zookeeper_exporter.git
+	branch = v1.1.2-arm64v8
+[submodule "jmx-prometheus-exporter"]
+	path = src/use_cases/seba_on_arm/src_repo/jmx-prometheus-exporter
+	url = https://github.com/iecedge/docker-jmx-prometheus-exporter.git
