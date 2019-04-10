@@ -39,3 +39,14 @@
 [submodule "xos-ws"]
 	path = src/use_cases/seba_on_arm/src_repo/xos-ws
 	url = https://github.com/iecedge/xos-rest-gw.git
+[submodule "tosca-loader"]
+	path = src/use_cases/seba_on_arm/src_repo/tosca-loader
+	url = https://github.com/iecedge/xos-tosca.git
+	branch = 1.1.5
+[submodule "kubernetes-synchronizer"]
+	path = src/use_cases/seba_on_arm/src_repo/kubernetes-synchronizer
+	url = https://github.com/iecedge/cord-kubernetes-service.git
+	branch = 2.1.25
+[submodule "sadis-server"]
+	path = src/use_cases/seba_on_arm/src_repo/sadis-server
+	url = https://github.com/iecedge/sadis-server.git
