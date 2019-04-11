@@ -114,3 +114,10 @@
 	path = src/use_cases/seba_on_arm/src_repo/pushgateway
 	url = https://github.com/iecedge/pushgateway.git
 	branch = v0.5.2-arm64v8
+[submodule "freeradius"]
+	path = src/use_cases/seba_on_arm/src_repo/freeradius
+	url = https://github.com/iecedge/freeradius.git
+[submodule "voltha"]
+	path = src/use_cases/seba_on_arm/src_repo/voltha
+	url = https://github.com/iecedge/voltha.git
+	branch = jglr_move_to_cachengo_infra
