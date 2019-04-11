@@ -50,3 +50,21 @@
 [submodule "sadis-server"]
 	path = src/use_cases/seba_on_arm/src_repo/sadis-server
 	url = https://github.com/iecedge/sadis-server.git
+[submodule "rcord-synchronizer"]
+	path = src/use_cases/seba_on_arm/src_repo/rcord-synchronizer
+	url = https://github.com/iecedge/rcord.git
+[submodule "fabric"]
+	path = src/use_cases/seba_on_arm/src_repo/fabric
+	url = https://github.com/iecedge/fabric.git
+[submodule "fabric-crossconnect"]
+	path = src/use_cases/seba_on_arm/src_repo/fabric-crossconnect
+	url = https://github.com/iecedge/fabric-crossconnect.git
+	branch = 1.1.4
+[submodule "onos-service"]
+	path = src/use_cases/seba_on_arm/src_repo/onos-service
+	url = https://github.com/iecedge/onos-service.git
+	branch = 2.0.7
+[submodule "olt-service"]
+	path = src/use_cases/seba_on_arm/src_repo/olt-service
+	url = https://github.com/iecedge/olt-service.git
+	branch = 2.1.14
