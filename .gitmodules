@@ -68,3 +68,21 @@
 	path = src/use_cases/seba_on_arm/src_repo/olt-service
 	url = https://github.com/iecedge/olt-service.git
 	branch = 2.1.14
+[submodule "elasticsearch-docker"]
+	path = src/use_cases/seba_on_arm/src_repo/elasticsearch-docker
+	url = https://github.com/iecedge/elasticsearch-docker.git
+	branch = 6.4.2-arm64v8
+[submodule "kubernetes"]
+	path = src/use_cases/seba_on_arm/src_repo/kubernetes
+	url = https://github.com/iecedge/kubernetes.git
+	branch = fluentd-elasticsearch-v2.3.1-arm64v8
+[submodule "kibana-docker"]
+	path = src/use_cases/seba_on_arm/src_repo/kibana-docker
+	url = https://github.com/iecedge/kibana-docker.git
+	branch = 6.4.2-arm64v8
+[submodule "logstash-docker"]
+	path = src/use_cases/seba_on_arm/src_repo/logstash-docker
+	url = https://github.com/iecedge/logstash-docker.git
+[submodule "logstash_exporter"]
+	path = src/use_cases/seba_on_arm/src_repo/logstash_exporter
+	url = https://github.com/iecedge/logstash_exporter.git
