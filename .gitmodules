@@ -121,3 +121,17 @@
 	path = src/use_cases/seba_on_arm/src_repo/voltha
 	url = https://github.com/iecedge/voltha.git
 	branch = jglr_move_to_cachengo_infra
+[submodule "etcd-operator-docker"]
+	path = src/use_cases/seba_on_arm/src_repo/etcd-operator-docker
+	url = https://github.com/iecedge/etcd-operator-docker.git
+[submodule "etcd"]
+	path = src/use_cases/seba_on_arm/src_repo/etcd
+	url = https://github.com/iecedge/etcd.git
+[submodule "onos"]
+	path = src/use_cases/seba_on_arm/src_repo/onos
+	url = https://github.com/iecedge/onos.git
+	branch = v1.13.5
+[submodule "beats-docker"]
+	path = src/use_cases/seba_on_arm/src_repo/beats-docker
+	url = https://github.com/iecedge/beats-docker.git
+	branch = 6.4.2-arm64v8
