@@ -14,3 +14,4 @@ Integrated Edge Cloud
 
    release/release-notes/index
    release/installation/index
+   release/api/index
