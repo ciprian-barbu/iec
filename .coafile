@@ -33,7 +33,7 @@ bears = YAMLLintBear
 files = **.yaml, **.yml
 use_spaces = true
 ignore_length_regex = ^.*https?://
-max_line_length = 120
+yamllint_config = .yamllint.conf
 ignore = src/use_cases/
 
 [all.Python]
