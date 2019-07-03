@@ -16,11 +16,7 @@ SCRIPTS_DIR=$(dirname "${BASH_SOURCE[0]}")
 
 install_calico(){
   # Install the Etcd Database
-  if [ "$(uname -m)" == 'aarch64' ]; then
-    ETCD_YAML=etcd-arm64.yaml
-  else
-    ETCD_YAML=etcd-amd64.yaml
-  fi
+  ETCD_YAML=etcd.yaml
 
   sed -i "s/10.96.232.136/${CLUSTER_IP}/" "${SCRIPTS_DIR}/cni/calico/${ETCD_YAML}"
   kubectl apply -f "${SCRIPTS_DIR}/cni/calico/${ETCD_YAML}"

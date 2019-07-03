@@ -1,10 +1,11 @@
+---
 # This manifest installs the Calico etcd on the kubeadm master.  This uses a DaemonSet
 # to force it to run on the master even when the master isn't schedulable, and uses
 # nodeSelector to ensure it only runs on the master.
 apiVersion: extensions/v1beta1
 kind: DaemonSet
 metadata:
-  name: calico-etcd
+  name: calico-etcd-arm64
   namespace: kube-system
   labels:
     k8s-app: calico-etcd
@@ -35,6 +36,7 @@ spec:
       # Only run this pod on the master.
       nodeSelector:
         node-role.kubernetes.io/master: ""
+        beta.kubernetes.io/arch: arm64
       hostNetwork: true
       containers:
         - name: calico-etcd
@@ -46,6 +48,71 @@ spec:
                   fieldPath: status.podIP
             - name: ETCD_UNSUPPORTED_ARCH
               value: "arm64"
+          command:
+            - /usr/local/bin/etcd
+          args:
+            - --name=calico
+            - --data-dir=/var/etcd/calico-data
+            - --advertise-client-urls=http://$(CALICO_ETCD_IP):6666
+            - --listen-client-urls=http://0.0.0.0:6666
+            - --listen-peer-urls=http://0.0.0.0:6667
+            - --auto-compaction-retention=1
+          volumeMounts:
+            - name: var-etcd
+              mountPath: /var/etcd
+      volumes:
+        - name: var-etcd
+          hostPath:
+            path: /var/etcd
+
+---
+# This manifest installs the Calico etcd on the kubeadm master.  This uses a DaemonSet
+# to force it to run on the master even when the master isn't schedulable, and uses
+# nodeSelector to ensure it only runs on the master.
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: calico-etcd-amd64
+  namespace: kube-system
+  labels:
+    k8s-app: calico-etcd
+spec:
+  template:
+    metadata:
+      labels:
+        k8s-app: calico-etcd
+      annotations:
+        # Mark this pod as a critical add-on; when enabled, the critical add-on scheduler
+        # reserves resources for critical add-on pods so that they can be rescheduled after
+        # a failure.  This annotation works in tandem with the toleration below.
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+    spec:
+      tolerations:
+        # This taint is set by all kubelets running `--cloud-provider=external`
+        # so we should tolerate it to schedule the Calico pods
+        - key: node.cloudprovider.kubernetes.io/uninitialized
+          value: "true"
+          effect: NoSchedule
+        # Allow this pod to run on the master.
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+        # Allow this pod to be rescheduled while the node is in "critical add-ons only" mode.
+        # This, along with the annotation above marks this pod as a critical add-on.
+        - key: CriticalAddonsOnly
+          operator: Exists
+      # Only run this pod on the master.
+      nodeSelector:
+        node-role.kubernetes.io/master: ""
+        beta.kubernetes.io/arch: amd64
+      hostNetwork: true
+      containers:
+        - name: calico-etcd
+          image: quay.io/coreos/etcd:v3.3.9
+          env:
+            - name: CALICO_ETCD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
           command:
             - /usr/local/bin/etcd
           args:
