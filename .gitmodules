@@ -138,3 +138,7 @@
 [submodule "kubectl-deployer-docker"]
 	path = src/use_cases/seba_on_arm/src_repo/kubectl-deployer-docker
 	url = https://github.com/iecedge/kubectl-deployer-docker.git
+[submodule "helm-charts"]
+	path = src/use_cases/seba_on_arm/src_repo/helm-charts
+	url = https://github.com/iecedge/helm-charts.git
+	branch = ponsim_3node_arm64
