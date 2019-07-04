@@ -26,7 +26,7 @@ cd "${WORKSPACE}/automation-tools" && git checkout "${AUTO_TOOLS_VER}"
 
 # Fake the setup phase so that portcheck.sh is not called
 # also install some required packages
-apt install -y httpie jq software-properties-common
+apt install -y httpie jq software-properties-common bridge-utils
 touch "${M}/setup"
 
 # Skip helm installation if it already exists and fake /usr/local/bin/helm
