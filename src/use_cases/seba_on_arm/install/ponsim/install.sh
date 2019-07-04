@@ -26,7 +26,7 @@ cd "${WORKSPACE}/automation-tools" && git checkout "${AUTO_TOOLS_VER}"
 
 # Fake the setup phase so that portcheck.sh is not called
 # also install some required packages
-apt install -y httpie jq software-properties-common bridge-utils
+sudo apt install -y httpie jq software-properties-common bridge-utils make
 touch "${M}/setup"
 
 # Skip helm installation if it already exists and fake /usr/local/bin/helm
@@ -36,7 +36,7 @@ then
   then
      echo "helm is installed at ${xhelm}; symlinking to /usr/local/bin/helm"
      mkdir -p /usr/local/bin/ || true
-     ln -s "${xhelm}" /usr/local/bin/helm
+     sudo ln -s "${xhelm}" /usr/local/bin/helm
   fi
 else
   echo "helm is not installed"
@@ -55,3 +55,8 @@ do
   echo "Faking SiaB milestone ${M}/${m}"
   test -f "${M}/${m}" || touch "${M}/${m}"
 done
+
+# Now calling make, to install PONSim
+cd "${WORKSPACE}/automation-tools/seba-in-a-box"
+make stable
+
