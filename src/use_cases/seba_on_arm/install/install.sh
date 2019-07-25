@@ -12,6 +12,7 @@ CORD_CHART=${CORD_CHART:-${basepath}/../src_repo/seba_charts}
 
 # TODO(alav): Make each step re-entrant
 
+# shellcheck source=/dev/null
 source util.sh
 
 wait_for 10 'test $(kubectl get pods --all-namespaces | grep -ce "tiller.*Running") -eq 1'
@@ -19,9 +20,11 @@ wait_for 10 'test $(kubectl get pods --all-namespaces | grep -ce "tiller.*Runnin
 # Add the CORD repository and update indexes
 
 if [ "$(uname -m)" == "aarch64" ]; then
-  if [ ! -d ${CORD_CHART}/cord-platform ]; then
+  if [ ! -d "${CORD_CHART}/cord-platform" ]; then
     #git clone https://github.com/iecedge/seba_charts ${CORD_CHART}
-    cd ${basepath}/../src_repo && git submodule update --init seba_charts
+    cd "$(git rev-parse --show-toplevel)"
+    git submodule update --init "${CORD_CHART}"
+    cd "${basepath}/../src_repo"
   fi
 else
   helm repo add cord "${CORD_REPO}"
