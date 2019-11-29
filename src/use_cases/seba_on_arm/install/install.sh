@@ -44,5 +44,5 @@ wait_for 500 'test $(kubectl get pods | grep -vcE "(\s(.+)/\2.*Running|tosca-loa
 
 # Install the AT&T workflow
 helm install -n att-workflow --version "${ATT_WORKFLOW_VERSION}" ${CORD_CHART}/att-workflow
-wait_for 300 'test $(kubectl get pods | grep -vcE "(\s(.+)/\2.*Running|tosca-loader.*Completed)") -eq 1' || true
+wait_for 500 'test $(kubectl get pods | grep -vcE "(\s(.+)/\2.*Running|tosca-loader.*Completed)") -eq 1' || true
 
