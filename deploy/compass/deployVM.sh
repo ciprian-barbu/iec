@@ -5,6 +5,10 @@ set -x
 build_compass(){
   echo "*** begin Compass4nfv build:"
 
+  # Fix docker-compose -> requests version mismatch with other
+  # Akraino CI jobs (installed requests should be >= 2.12)
+  sed -i "s/\(docker-compose\)==1.14.0/\1==1.24.1/g" deploy/prepare.sh
+
   # Fix bug of getting IP address failure.
   sed -i "s/inet addr:/inet /g" util/docker-compose/roles/compass/tasks/main.yml
   sed -i "s/cut -d: -f2/cut -d ' ' -f10/g" util/docker-compose/roles/compass/tasks/main.yml
