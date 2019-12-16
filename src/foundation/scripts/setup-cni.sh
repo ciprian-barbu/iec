@@ -8,9 +8,9 @@ if [ -f "$HOME/.bashrc" ]; then
 fi
 
 
-CLUSTER_IP=${1:-172.16.1.136} # Align with the value in our K8s setup script
+CNI_TYPE=${1:-calico}
 POD_NETWORK_CIDR=${2:-192.168.0.0/16}
-CNI_TYPE=${3:-calico}
+CLUSTER_IP=${3:-172.16.1.136} # Align with the value in our K8s setup script
 K8S_MASTER_IP=${4:-10.169.41.173}
 SERVICE_CIDR=${5:-172.16.1.0/24}
 DEV_NAME=${6:-}

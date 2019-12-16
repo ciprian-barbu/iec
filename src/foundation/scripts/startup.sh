@@ -98,7 +98,7 @@ deploy_k8s () {
 
 
   #Deploy etcd & CNI from master node
-  SETUP_CNI="cd iec/src/foundation/scripts && source setup-cni.sh $CLUSTER_IP $POD_NETWORK_CIDR $CNI_TYPE $K8S_MASTER_IP $SVC_CIDR"
+  SETUP_CNI="cd iec/src/foundation/scripts && source setup-cni.sh $CNI_TYPE $POD_NETWORK_CIDR $CLUSTER_IP $K8S_MASTER_IP $SVC_CIDR"
   sshpass -p ${K8S_MASTERPW} ssh -o StrictHostKeyChecking=no ${HOST_USER}@${K8S_MASTER_IP} ${SETUP_CNI}
   SETUP_HELM="cd iec/src/foundation/scripts && source helm.sh"
   sshpass -p ${K8S_MASTERPW} ssh -o StrictHostKeyChecking=no ${HOST_USER}@${K8S_MASTER_IP} ${SETUP_HELM}
