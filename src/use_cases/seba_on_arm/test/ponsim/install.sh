@@ -6,7 +6,7 @@ set -ex
 basepath=$(cd "$(dirname "$0")"; pwd)
 
 # Using opencord automation-tools from the cord-6.1 maintenance branch
-AUTO_TOOLS_GIT="https://github.com/opencord/automation-tools.git"
+AUTO_TOOLS_GIT="https://github.com/iecedge/automation-tools.git"
 AUTO_TOOLS_VER=${AUTO_TOOLS_VER:-cord-7.0-arm64}
 
 export M=/tmp/milestones
