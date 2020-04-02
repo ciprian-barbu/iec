@@ -15,8 +15,8 @@ trap f_clean INT EXIT
 
 f_clean(){
   echo "Cleaning up after ${cont_id}"
-  docker kill "${cont_id}"
-  docker rm "${cont_id}"
+  sudo docker kill "${cont_id}"
+  sudo docker rm "${cont_id}"
 }
 
 if ! [ -d "${KUBE_DIR}" ]
@@ -25,8 +25,11 @@ then
   exit 1
 fi
 
-docker pull "${CORD_IMG}"
-DOCKER_CMD="docker run -id -e K8S_MASTER_IP=${K8S_MASTER_IP} \
+# This is needed because pynacl build will fail otherwise, during make check
+sudo sysctl -w vm.overcommit_memory=0
+
+sudo docker pull "${CORD_IMG}"
+DOCKER_CMD="sudo docker run -id -e K8S_MASTER_IP=${K8S_MASTER_IP} \
        -e USER=${TEST_USER} \
        -v ${basepath}/docker_run.sh:/workspace/docker_run.sh \
        -v ${KUBE_DIR}:/workspace/.kube \
@@ -34,7 +37,7 @@ DOCKER_CMD="docker run -id -e K8S_MASTER_IP=${K8S_MASTER_IP} \
 if cont_id=$(eval "${DOCKER_CMD}")
 then
   echo "Starting SIAB.robot in ${cont_id}"
-  docker exec "${cont_id}" /workspace/docker_run.sh
+  sudo docker exec "${cont_id}" /workspace/docker_run.sh
 else
   echo "Failed to execute docker command ${cont_id}"
   exit 1
