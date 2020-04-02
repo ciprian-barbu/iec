@@ -18,6 +18,7 @@ sudo apt-get install jq -y
 sudo /etc/init.d/ssh restart
 ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa 2>/dev/null <<< y >/dev/null
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 cd "${HOME}"
 sudo cp -r "${KUBE_DIR}" .kube
 sudo chown -R "$(id -u)":"$(id -g)" .kube
