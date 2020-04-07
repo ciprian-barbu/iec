@@ -6,7 +6,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 ---
-### ubuntu1604-dev-48c-256g-2 installer descriptor file ###
+### ubuntu1804-dev-48c-256g-2 installer descriptor file ###
 
 idf:
   version: 0.1
