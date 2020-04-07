@@ -6,7 +6,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 ---
-### ubuntu1604-dev-48c-256g-2 pod descriptor file ###
+### ubuntu1804-dev-48c-256g-2 pod descriptor file ###
 
 version: 1.0
 details:
@@ -18,7 +18,7 @@ details:
   link: https://wiki.akraino.org/display/AK/IEC+Internal+Verification+and+Validation+Lab+Setup
 ##############################################################################
 jumphost:
-  name: ubuntu1604-dev-48c-256g-2
+  name: ubuntu1804-dev-48c-256g-2
   node:
     type: baremetal
     vendor: Cavium
