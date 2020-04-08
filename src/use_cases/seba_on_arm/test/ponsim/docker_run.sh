@@ -10,14 +10,14 @@ K8S_MASTER_IP="${K8S_MASTER_IP:-127.0.0.1}"
 KUBE_DIR="${KUBE_DIR:-/workspace/.kube}"
 USER="${USER:-ubuntu}"
 
-# The ssh server must be running since cord-tester tries to connect
-# to localhost
+# The ssh server must be running since cord-tester does sshto localhost
 sudo apt-get update
 sudo apt-get install httpie -y
 sudo apt-get install jq -y
 sudo /etc/init.d/ssh restart
 ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa 2>/dev/null <<< y >/dev/null
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+# Make sure ssh localhost works with no interruption
 ssh-keyscan -H localhost >> ~/.ssh/known_hosts
 cd "${HOME}"
 sudo cp -r "${KUBE_DIR}" .kube

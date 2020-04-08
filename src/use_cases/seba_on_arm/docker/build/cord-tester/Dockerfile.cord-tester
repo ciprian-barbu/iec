@@ -29,6 +29,7 @@ RUN apt update && apt install -y lsb-release openssh-server sudo curl \
     python-pip virtualenv python3-dev \
     git libffi-dev libssl-dev libpq-dev
 
+# For now still using old Kubernetes from Xenial to map with IEC version
 RUN echo "deb http://packages.cloud.google.com/apt kubernetes-xenial main" >\
     /etc/apt/sources.list.d/kubernetes.list
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg > key.gpg
@@ -38,7 +39,7 @@ RUN apt update && apt install kubectl=$KUBE_VERSION
 RUN pip install virtualenv
 RUN apt-mark hold kubectl && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
-RUN useradd -m -s /bin/bash --system -G sudo \
-    -p $(openssl passwd -1 $TEST_USER) $TEST_USER
-RUN echo "ubuntu\tALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-docker-users
+RUN groupadd -r $TEST_USER && useradd -m -s /bin/bash -g $TEST_USER \                                                                                                                                            
+    --system -G sudo -p $(openssl passwd -1 $TEST_USER) $TEST_USER                                                                                                                                               
+RUN echo "$TEST_USER\tALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-docker-users    
 USER $TEST_USER
