@@ -5,7 +5,7 @@ set -ex
 
 basepath=$(cd "$(dirname "$0")"; pwd)
 
-CORD_IMG="${CORD_IMG:-iecedge/cord-tester:latest}"
+CORD_IMG="${CORD_IMG:-iecedge/cord-tester:cord-7.0}"
 KUBE_DIR="${KUBE_DIR:-${PWD}/.kube}"
 K8S_MASTER_IP="${K8S_MASTER_IP:-127.0.0.1}"
 TEST_USER="${TEST_USER:-ubuntu}"
