@@ -34,9 +34,11 @@ DOCKER_CMD="docker run -id -e K8S_MASTER_IP=${K8S_MASTER_IP} \
 if cont_id=$(eval "${DOCKER_CMD}")
 then
   echo "Starting SIAB.robot in ${cont_id}"
-  docker exec "${cont_id}" sudo cp /workspace/docker_run.sh ~/docker_run.sh
-  docker exec "${cont_id}" sudo chown "${TEST_USER}:${TEST_USER}" ~/docker_run.sh
-  docker exec "${cont_id}" ~/docker_run.sh
+  docker exec "${cont_id}" sudo cp /workspace/docker_run.sh \
+        "/home/${TEST_USER}/docker_run.sh"
+  docker exec "${cont_id}" sudo chown "${TEST_USER}:${TEST_USER}" \
+         "/home/${TEST_USER}/docker_run.sh"
+  docker exec "${cont_id}" "/home/${TEST_USER}/docker_run.sh"
 else
   echo "Failed to execute docker command ${cont_id}"
   exit 1
