@@ -4,7 +4,7 @@
 set -ex
 
 basepath="$(cd "$(dirname "$(readlink -f "$0")")"; pwd)"
-IEC_PATH="$(readlink -f "${basepath}/../../../../..")"
+IEC_PATH="$(readlink -f "$(git -C "${basepath}" rev-parse --show-toplevel)")"
 HELM_CHARTS_PATH="src/use_cases/seba_on_arm/src_repo/helm-charts"
 
 export M="/tmp/milestones"
@@ -23,18 +23,17 @@ mkdir -p "${M}" "${WORKSPACE}/cord/test"
 # ignore subproject commit and use latest remote version
 git -C "${IEC_PATH}" submodule update --init --remote "${HELM_CHARTS_PATH}"
 
-
 test -d "${AUTO_TOOLS}" || git clone "${AUTO_TOOLS_REPO}" "${AUTO_TOOLS}"
 git -C "${AUTO_TOOLS}" checkout "${AUTO_TOOLS_REV}"
 
 # Faking helm-charts repo clone to our own git submodule if not already there
 CHARTS="${WORKSPACE}/cord/helm-charts"
 test -d "${CHARTS}" || test -L "${CHARTS}" || \
-    ln -s "${basepath}/../../src_repo/helm-charts" "${CHARTS}"
+    ln -s "${IEC_PATH}/${HELM_CHARTS_PATH}" "${CHARTS}"
 
 cd "${AUTO_TOOLS}/seba-in-a-box"
 # shellcheck source=/dev/null
 . env.sh
 
-# Now calling make, to install PONSim
+# Now calling make, to install SiaB and PONSim
 make stable
