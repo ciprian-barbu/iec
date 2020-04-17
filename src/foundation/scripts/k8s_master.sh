@@ -2,7 +2,9 @@
 # shellcheck source=/dev/null
 
 # For host setup as Kubernetes master
-MGMT_IP=$1
+# Use the src of the default route as the default local IP
+DEF_SRC_IP=$(ip route get 8.8.8.8 | awk '{ for (nn=1;nn<=NF;nn++) if ($nn~"src") print $(nn+1) }')
+MGMT_IP=${1:-${DEF_SRC_IP}}
 POD_NETWORK_CIDR=${2:-192.168.0.0/16}
 SERVICE_CIDR=${3:-172.16.1.0/24}
 
