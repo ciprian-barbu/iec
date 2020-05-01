@@ -23,7 +23,7 @@ trap f_clean EXIT
 
 f_clean(){
   echo "Execution finished, cleaning up"
-  chmod -R 777 results
+  sudo chmod -R 777 results
 }
 
 if ! [ -d "${KUBE_DIR}" ]
@@ -33,7 +33,7 @@ then
 fi
 
 docker pull "${CORD_IMG}"
-docker run --rm -it \
+docker run --rm \
     -e K8S_MASTER_IP=${K8S_MASTER_IP} \
     -e USER=${TEST_USER} \
     -v ${basepath}/docker_run.sh:/workspace/docker_run.sh \
