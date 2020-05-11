@@ -9,14 +9,14 @@ fi
 case ${OS_ID_LIKE:-} in
 debian)
   DOCKER_VERSION=18.06.1~ce~3-0~ubuntu
-  KUBE_VERSION=${1:-1.13.0}-00
-  K8S_CNI_VERSION=${2:-0.6.0}-00
+  KUBE_VERSION=${1:-1.15.0}-00
+  K8S_CNI_VERSION=${2:-0.7.5}-00
   KUBELET_CFG=/etc/default/kubelet
   ;;
 rhel)
   DOCKER_VERSION=18.06.1.ce-3.el7
-  KUBE_VERSION=${1:-1.13.0}-0
-  K8S_CNI_VERSION=${2:-0.6.0}-0
+  KUBE_VERSION=${1:-1.15.0}-0
+  K8S_CNI_VERSION=${2:-0.7.5}-0
   KUBELET_CFG=/etc/sysconfig/kubelet
   ;;
 *)
@@ -31,7 +31,7 @@ debian)
   # Install basic software
   echo "Acquire::ForceIPv4 \"true\";" | sudo tee -a /etc/apt/apt.conf.d/99force-ipv4 > /dev/null
   sudo apt update
-  sudo apt install -y software-properties-common apt-transport-https curl
+  sudo apt install -y software-properties-common apt-transport-https curl python-pip
 
   # Install Docker as Prerequisite
   curl -4fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
